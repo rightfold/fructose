@@ -105,12 +105,12 @@ $e$ ::= & Term \\
 
 {\bf Reduction}
 
-$$\frac{}{x \rightarrow x}$$
-$$\frac{}{\lambda(x_i, \dots).\;e \rightarrow \lambda(x_i, \dots).\;e}$$
-$$\frac{e_1 \rightarrow \lambda(x_i, \dots).\;e_1' \quad e_i \rightarrow e_i', \dots \quad e_1'[e_i' / x_i, \dots] \rightarrow e_2}{e_1(e_i, \dots) \rightarrow e_2}$$
-$$\frac{e_1 \rightarrow \mathtt{true} \quad e_2 \rightarrow e_2'}{\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3 \rightarrow e_2'}$$
-$$\frac{e_1 \rightarrow \mathtt{false} \quad e_3 \rightarrow e_3'}{\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3 \rightarrow e_3'}$$
-$$\frac{}{v \rightarrow v}$$
+$$\frac{}{x \Downarrow x}$$
+$$\frac{}{\lambda(x_i, \dots).\;e \Downarrow \lambda(x_i, \dots).\;e}$$
+$$\frac{e_1 \Downarrow \lambda(x_i, \dots).\;e_1' \quad e_i \Downarrow e_i', \dots \quad e_1'[e_i' / x_i, \dots] \Downarrow e_2}{e_1(e_i, \dots) \Downarrow e_2}$$
+$$\frac{e_1 \Downarrow \mathtt{true} \quad e_2 \Downarrow e_2'}{\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3 \Downarrow e_2'}$$
+$$\frac{e_1 \Downarrow \mathtt{false} \quad e_3 \Downarrow e_3'}{\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3 \Downarrow e_3'}$$
+$$\frac{}{v \Downarrow v}$$
 
 \end{figure}
 
