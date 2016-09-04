@@ -90,7 +90,7 @@ $$\frac{}{\lambda(x_i, \dots).\;e \rightarrow \lambda(x_i, \dots).\;e}$$
 $$\frac{e_1 \rightarrow \lambda(x_i, \dots).\;e_1' \quad e_i \rightarrow e_i' \quad e_1'[e_i' / x_i] \rightarrow e_2}{e_1(e_i, \dots) \rightarrow e_2}$$
 $$\frac{e_1 \rightarrow \mathtt{true} \quad e_2 \rightarrow e_2'}{\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3 \rightarrow e_2'}$$
 $$\frac{e_1 \rightarrow \mathtt{false} \quad e_3 \rightarrow e_3'}{\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3 \rightarrow e_3'}$$
-$$\frac{}{v \rightarrow v}$$
+$$\frac{}{v \rightarrow v} \frac{}{\mathtt{true} \rightarrow \mathtt{true}} \frac{}{\mathtt{false} \rightarrow \mathtt{false}}$$
 
 \end{figure}
 
