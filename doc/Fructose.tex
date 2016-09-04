@@ -62,7 +62,7 @@ The reader is a program that parses a textual representation of a value and retu
 
 \section{The Compiler}
 
-The compiler is a program that translates a value into a term in the language \lisp, shown in figure \ref{fig:lisp}. \lisp extends the $\lambda$-calculus with multi-parameter functions, quotations, and conditionals.
+The compiler is a program that translates a value into a term in the language \lisp, shown in figure \ref{fig:lisp}. \lisp\ extends the untyped $\lambda$-calculus with multi-parameter functions, quotations, and conditionals.
 
 \begin{figure}[h]
 \label{fig:lisp}
@@ -96,5 +96,9 @@ $$\frac{e_1 \rightarrow \mathtt{false} \quad e_3 \rightarrow e_3'}{\mathtt{if}\;
 $$\frac{}{v \rightarrow v}$$
 
 \end{figure}
+
+\section{The Code Generator}
+
+The code generator is a program that translates a \lisp\ term into an ECMAScript program.
 
 \end{document}
