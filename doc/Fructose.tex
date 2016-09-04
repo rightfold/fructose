@@ -21,7 +21,7 @@ The reader is a program that parses a textual representation of a value and retu
 \alt <Boolean>
 \alt <Number>
 \alt <String>
-\alt <List>
+\alt <Array>
 
 <Atom> ::= \{ \it{any code point in Unicode category {\bf L}, {\bf Pc}, {\bf Pd}, or {\bf S}} \}
 
@@ -37,7 +37,7 @@ The reader is a program that parses a textual representation of a value and retu
 \alt "\\a" | "\\b" | "\\f" | "\\n" | "\\r" | "\\t" | "\\v" | "\\\\" | "\\'" | "\\\"" | "\\?"
 \alt "\\u" <hex-digit> <hex-digit> <hex-digit> <hex-digit>
 
-<List> ::= "(" \{ <Value> \} ")"
+<Array> ::= "(" \{ <Value> \} ")"
 
 <letter> ::= "a" .. "z" | "A" .. "Z"
 
