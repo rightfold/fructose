@@ -72,13 +72,16 @@ The compiler is a program that translates a value into a term in the language \l
 
 \begin{tabular}{ll}
 $x$ & Variable \\
-$v, \mathtt{true}, \mathtt{false}$ & Value \\
+$v$ ::= & Value \\
+\hspace{1em} $\mathtt{true}$ & \hspace{1em} Boolean true \\
+\hspace{1em} $\mathtt{false}$ & \hspace{1em} Boolean false \\
+\hspace{1em} $w$ & \hspace{1em} Non-Boolean \\
 $e$ ::= & Term \\
 \hspace{1em} $x$ & \hspace{1em} Variable \\
 \hspace{1em} $\lambda(x_i, \dots).\;e$ & \hspace{1em} Lambda \\
 \hspace{1em} $e(e_i, \dots)$ & \hspace{1em} Application \\
 \hspace{1em} $\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3$ & \hspace{1em} Conditional \\
-\hspace{1em} $v, \mathtt{true}, \mathtt{false}$ & \hspace{1em} Quotation \\
+\hspace{1em} $v$ & \hspace{1em} Quotation \\
 \end{tabular}
 
 \hrulefill
@@ -90,7 +93,7 @@ $$\frac{}{\lambda(x_i, \dots).\;e \rightarrow \lambda(x_i, \dots).\;e}$$
 $$\frac{e_1 \rightarrow \lambda(x_i, \dots).\;e_1' \quad e_i \rightarrow e_i' \quad e_1'[e_i' / x_i] \rightarrow e_2}{e_1(e_i, \dots) \rightarrow e_2}$$
 $$\frac{e_1 \rightarrow \mathtt{true} \quad e_2 \rightarrow e_2'}{\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3 \rightarrow e_2'}$$
 $$\frac{e_1 \rightarrow \mathtt{false} \quad e_3 \rightarrow e_3'}{\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3 \rightarrow e_3'}$$
-$$\frac{}{v \rightarrow v} \frac{}{\mathtt{true} \rightarrow \mathtt{true}} \frac{}{\mathtt{false} \rightarrow \mathtt{false}}$$
+$$\frac{}{v \rightarrow v}$$
 
 \end{figure}
 
