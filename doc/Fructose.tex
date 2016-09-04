@@ -1,5 +1,7 @@
 \documentclass[a4paper]{article}
 
+\usepackage{amsmath}
+
 \usepackage{syntax}
 \setlength{\grammarindent}{8em}
 
@@ -62,7 +64,22 @@ The reader is a program that parses a textual representation of a value and retu
 
 \section{The Compiler}
 
-The compiler is a program that translates a value into a term in the language \lisp, shown in figure \ref{fig:lisp}. \lisp\ extends the untyped $\lambda$-calculus with multi-parameter functions, quotations, and conditionals.
+The compiler is a program that translates a value into a term in the language \lisp, shown in figure \ref{fig:lisp}. \lisp\ extends the untyped $\lambda$-calculus with multi-parameter functions, quotations, and conditionals. This translation is rather straightforward:
+
+$$
+\begin{aligned}
+\mu\;\mathtt{x} &= x && \text{where $\mathtt{x} : \langle Atom \rangle$} \\
+\mu\;\hbox{\texttt{\#}}\mathtt{t} &= \mathtt{true} \\
+\mu\;\hbox{\texttt{\#}}\mathtt{f} &= \mathtt{false} \\
+\mu\;v &= v && \text{where $v : \langle Number \rangle$} \\
+\mu\;v &= v && \text{where $v : \langle String \rangle$} \\
+\mu\;\mathtt{(} e_1\;e_i\;\dots \mathtt{)} &= (\mu\;e_1)(\mu\;e_i, \dots) \\
+\mu\;\mathtt{(} \mathtt{fn}\;(\mathtt{x}_i\; \dots)\;e \mathtt{)} &= \lambda(x_i, \dots).\;\mu\;e && \text{where $\mathtt{x}_i : \langle Atom \rangle$} \\
+\mu\;\mathtt{(} \mathtt{quote}\;v \mathtt{)} &= v \\
+\mu\;\mathtt{(} \mathtt{if}\;e_1\;e_2\;e_3 \mathtt{)} &= \mathtt{if}\;\mu\;e_1\;\mathtt{then}\;\mu\;e_2\;\mathtt{else}\;\mu\;e_3 \\
+\mu\;\mathtt{(} \mathtt{let}\;\mathtt{x}\;e_1\;e_2 \mathtt{)} &= (\lambda(x).\;\mu\;e_2)(\mu\;e_1) && \text{where $\mathtt{x} : \langle Atom \rangle$} \\
+\end{aligned}
+$$
 
 \begin{figure}[h]
 \label{fig:lisp}
@@ -99,6 +116,6 @@ $$\frac{}{v \rightarrow v}$$
 
 \section{The Code Generator}
 
-The code generator is a program that translates a \lisp\ term into an ECMAScript program.
+The code generator is a program that translates a \lisp\ term into an ECMAScript program, such that the resulting ECMAScript program exhibits the same reduction rules.
 
 \end{document}
