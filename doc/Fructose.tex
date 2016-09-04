@@ -7,6 +7,8 @@
 \floatstyle{boxed} 
 \restylefloat{figure}
 
+\newcommand{\lisp}{\ensuremath{\mathcal{L}\{\lambda isp\}}}
+
 \title{The Fructose Programming Language}
 
 \begin{document}
@@ -19,9 +21,9 @@ The Fructose programming language is a lisp-like programming language that trans
 
 \section{The Reader}
 
-The reader is a program that parses a textual representation of a value and returns that value. The reader reads values according to the grammar shown in figure \ref{fig:readergrammar}.
+The reader is a program that parses a textual representation of a value and returns that value. The reader reads values according to the following grammar shown in figure \ref{fig:readergrammar}.
 
-\begin{figure}
+\begin{figure}[h]
 \label{fig:readergrammar}
 \caption{The reader grammar. Rules with capitalized names ignore surrounding whitespace, where whitespace is defined by rule $\{ \langle space \rangle \}$}
 \begin{grammar}
@@ -31,17 +33,16 @@ The reader is a program that parses a textual representation of a value and retu
 \alt <String>
 \alt <Array>
 
-<Atom> ::= \{ \it{any code point in Unicode category {\bf L}, {\bf Pc}, {\bf Pd}, or {\bf S}} \}
+<Atom> ::= \{ {\it any code point in Unicode category {\bf L}, {\bf Pc}, {\bf Pd}, or {\bf S}} \}
 
 <Boolean> ::= "#t" | "#f"
 
-<Number> ::= <digit> \{ <digit> \}
-\alt <digit> \{ <digit> \} "." <digit> \{ <digit> \}
+<Number> ::= [ "-" ] <digit> \{ <digit> \} [ "." <digit> \{ <digit> \} ]
 \alt "0x" <hex-digit> \{ <hex-digit> \}
 
 <String> ::= "\"" \{ <char> \} "\""
 
-<char> ::= \it{any code point except "\"" and "\\"}
+<char> ::= {\it any code point except "\"" and "\\"}
 \alt "\\a" | "\\b" | "\\f" | "\\n" | "\\r" | "\\t" | "\\v" | "\\\\" | "\\'" | "\\\"" | "\\?"
 \alt "\\u" <hex-digit> <hex-digit> <hex-digit> <hex-digit>
 
@@ -53,10 +54,44 @@ The reader is a program that parses a textual representation of a value and retu
 
 <hex-digit> ::= "0" .. "9" | "a" .. "f" | "A" .. "F"
 
-<space> ::= \it{any code point with Unicode property {\bf WSpace=Y}}
+<space> ::= {\it any code point with Unicode property {\bf WSpace=Y}}
 \alt ","
 
 \end{grammar}
+\end{figure}
+
+\section{The Compiler}
+
+The compiler is a program that translates a value into a term in the language \lisp, shown in figure \ref{fig:lisp}. \lisp extends the $\lambda$-calculus with multi-parameter functions, quotations, and conditionals.
+
+\begin{figure}[h]
+\label{fig:lisp}
+\caption{\lisp.}
+
+{\bf Syntax}
+
+\begin{tabular}{ll}
+$x$ & Variable \\
+$v, \mathtt{true}, \mathtt{false}$ & Value \\
+$e$ ::= & Term \\
+\hspace{1em} $x$ & \hspace{1em} Variable \\
+\hspace{1em} $\lambda(x_i, \dots).\;e$ & \hspace{1em} Lambda \\
+\hspace{1em} $e(e_i, \dots)$ & \hspace{1em} Application \\
+\hspace{1em} $\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3$ & \hspace{1em} Conditional \\
+\hspace{1em} $v, \mathtt{true}, \mathtt{false}$ & \hspace{1em} Quotation \\
+\end{tabular}
+
+\hrulefill
+
+{\bf Reduction}
+
+$$\frac{}{x \rightarrow x}$$
+$$\frac{}{\lambda(x_i, \dots).\;e \rightarrow \lambda(x_i, \dots).\;e}$$
+$$\frac{e_1 \rightarrow \lambda(x_i, \dots).\;e_1' \quad e_i \rightarrow e_i' \quad e_1'[e_i' / x_i] \rightarrow e_2}{e_1(e_i, \dots) \rightarrow e_2}$$
+$$\frac{e_1 \rightarrow \mathtt{true} \quad e_2 \rightarrow e_2'}{\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3 \rightarrow e_2'}$$
+$$\frac{e_1 \rightarrow \mathtt{false} \quad e_3 \rightarrow e_3'}{\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3 \rightarrow e_3'}$$
+$$\frac{}{v \rightarrow v}$$
+
 \end{figure}
 
 \end{document}
