@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+
+\usepackage{syntax}
+\setlength{\grammarindent}{8em}
+
+\usepackage{float}
+\floatstyle{boxed} 
+\restylefloat{figure}
+
+\begin{document}
+
+\section{The Reader}
+
+The reader is a program that parses a textual representation of a value and returns that value. The reader reads values according to the grammar shown in figure \ref{fig:readergrammar}.
+
+\begin{figure}
+\label{fig:readergrammar}
+\caption{The reader grammar. Rules with capitalized names ignore surrounding whitespace, where whitespace is defined by rule $\{ \langle space \rangle \}$}
+\begin{grammar}
+<Value> ::= <Atom>
+\alt <Boolean>
+\alt <Number>
+\alt <String>
+\alt <List>
+
+<Atom> ::= \{ \it{any code point in Unicode category {\bf L}, {\bf Pc}, {\bf Pd}, or {\bf S}} \}
+
+<Boolean> ::= "#t" | "#f"
+
+<Number> ::= <digit> \{ <digit> \}
+\alt <digit> \{ <digit> \} "." <digit> \{ <digit> \}
+\alt "0x" <hex-digit> \{ <hex-digit> \}
+
+<String> ::= "\"" \{ <char> \} "\""
+
+<char> ::= \it{any code point except "\"" and "\\"}
+\alt "\\a" | "\\b" | "\\f" | "\\n" | "\\r" | "\\t" | "\\v" | "\\\\" | "\\'" | "\\\"" | "\\?"
+\alt "\\u" <hex-digit> <hex-digit> <hex-digit> <hex-digit>
+
+<List> ::= "(" \{ <Value> \} ")"
+
+<letter> ::= "a" .. "z" | "A" .. "Z"
+
+<digit> ::= "0" .. "9"
+
+<hex-digit> ::= "0" .. "9" | "a" .. "f" | "A" .. "F"
+
+<space> ::= \it{any code point with Unicode property {\bf WSpace=Y}}
+\alt ","
+
+\end{grammar}
+\end{figure}
+
+\end{document}
