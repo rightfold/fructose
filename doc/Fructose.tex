@@ -27,7 +27,7 @@ The reader is a program that parses a textual representation of a value and retu
 
 \begin{figure}[h]
 \label{fig:readergrammar}
-\caption{The reader grammar. Rules with capitalized names ignore surrounding whitespace, where whitespace is defined by rule $\{ \langle space \rangle \}$}
+\caption{The reader grammar. Rules with capitalized names ignore surrounding whitespace, where whitespace is defined by rule $\{ \langle space \rangle \}$.}
 \begin{grammar}
 <Value> ::= <Atom>
 \alt <Boolean>
@@ -95,19 +95,29 @@ $v$ ::= & Value \\
 \hspace{1em} $w$ & \hspace{1em} Non-Boolean \\
 $e$ ::= & Term \\
 \hspace{1em} $x$ & \hspace{1em} Variable \\
-\hspace{1em} $\lambda(x_i, \dots).\;e$ & \hspace{1em} Lambda \\
-\hspace{1em} $e(e_i, \dots)$ & \hspace{1em} Application \\
+\hspace{1em} $\lambda(x_i, \dotsc).\;e$ & \hspace{1em} Lambda \\
+\hspace{1em} $e(e_i, \dotsc)$ & \hspace{1em} Application \\
 \hspace{1em} $\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3$ & \hspace{1em} Conditional \\
 \hspace{1em} $v$ & \hspace{1em} Quotation \\
 \end{tabular}
 
 \hrulefill
 
+{\bf Scoping}
+
+$$\frac{x \in \Gamma}{\Gamma \vdash x}$$
+$$\frac{\Gamma, x_i, \dotsc \vdash e}{\Gamma \vdash \lambda(x_i, \dotsc).\;e}$$
+$$\frac{\Gamma \vdash e_1 \quad \Gamma \vdash e_i, \dotsc}{\Gamma \vdash e_1(e_i, \dotsc)}$$
+$$\frac{\Gamma \vdash e_1 \quad \Gamma \vdash e_2 \quad \Gamma \vdash e_3}{\Gamma \vdash \mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3}$$
+$$\frac{}{v}$$
+
+\hrulefill
+
 {\bf Reduction}
 
 $$\frac{}{x \rightarrow x}$$
-$$\frac{}{\lambda(x_i, \dots).\;e \rightarrow \lambda(x_i, \dots).\;e}$$
-$$\frac{e_1 \rightarrow \lambda(x_i, \dots).\;e_1' \quad e_i \rightarrow e_i', \dots \quad e_1'[e_i' / x_i, \dots] \rightarrow e_2}{e_1(e_i, \dots) \rightarrow e_2}$$
+$$\frac{}{\lambda(x_i, \dotsc).\;e \rightarrow \lambda(x_i, \dotsc).\;e}$$
+$$\frac{e_1 \rightarrow \lambda(x_i, \dotsc).\;e_1' \quad e_i \rightarrow e_i', \dotsc \quad e_1'[e_i' / x_i, \dotsc] \rightarrow e_2}{e_1(e_i, \dotsc) \rightarrow e_2}$$
 $$\frac{e_1 \rightarrow \mathtt{true} \quad e_2 \rightarrow e_2'}{\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3 \rightarrow e_2'}$$
 $$\frac{e_1 \rightarrow \mathtt{false} \quad e_3 \rightarrow e_3'}{\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3 \rightarrow e_3'}$$
 $$\frac{}{v \rightarrow v}$$
