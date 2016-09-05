@@ -2,6 +2,10 @@
 
 \usepackage{amsmath}
 
+\usepackage{multicol}
+\setlength{\columnseprule}{0.5pt}
+\setlength{\multicolsep}{-3pt}
+
 \usepackage{syntax}
 \setlength{\grammarindent}{8em}
 
@@ -85,23 +89,24 @@ $$
 \label{fig:lisp}
 \caption{\lisp.}
 
+\begin{multicols}{2}
 {\bf Syntax}
 
 \begin{tabular}{ll}
 $x$ & Variable \\
 $v$ ::= & Value \\
-\hspace{1em} $\mathtt{true}$ & \hspace{1em} Boolean true \\
-\hspace{1em} $\mathtt{false}$ & \hspace{1em} Boolean false \\
-\hspace{1em} $w$ & \hspace{1em} Non-Boolean \\
+\hspace{1em} $\mathtt{true}$ & \hspace{1em} True \\
+\hspace{1em} $\mathtt{false}$ & \hspace{1em} False \\
+\hspace{1em} $w$ & \hspace{1em} Other \\
 $e$ ::= & Term \\
-\hspace{1em} $x$ & \hspace{1em} Variable \\
-\hspace{1em} $\lambda(x_i, \dotsc).\;e$ & \hspace{1em} Lambda \\
-\hspace{1em} $e(e_i, \dotsc)$ & \hspace{1em} Application \\
-\hspace{1em} $\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3$ & \hspace{1em} Conditional \\
-\hspace{1em} $v$ & \hspace{1em} Quotation \\
+\hspace{1em} $x$ & \hspace{1em} Var \\
+\hspace{1em} $\lambda(x_i, \dotsc).\;e$ & \hspace{1em} Abs \\
+\hspace{1em} $e(e_i, \dotsc)$ & \hspace{1em} App \\
+\hspace{1em} $\mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3$ & \hspace{1em} If \\
+\hspace{1em} $v$ & \hspace{1em} Quot \\
 \end{tabular}
 
-\hrulefill
+\columnbreak
 
 {\bf Scoping}
 
@@ -110,6 +115,11 @@ $$\frac{\Gamma, x_i, \dotsc \vdash e}{\Gamma \vdash \lambda(x_i, \dotsc).\;e}$$
 $$\frac{\Gamma \vdash e_1 \quad \Gamma \vdash e_i, \dotsc}{\Gamma \vdash e_1(e_i, \dotsc)}$$
 $$\frac{\Gamma \vdash e_1 \quad \Gamma \vdash e_2 \quad \Gamma \vdash e_3}{\Gamma \vdash \mathtt{if}\;e_1\;\mathtt{then}\;e_2\;\mathtt{else}\;e_3}$$
 $$\frac{}{v}$$
+
+\vspace{-13pt}
+\mbox{}
+
+\end{multicols}
 
 \hrulefill
 
